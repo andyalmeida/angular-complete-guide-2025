@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { UserComponent } from './user/user.component';
 import { DUMMY_USERS } from './dummy-users';
@@ -10,14 +10,14 @@ import { TasksComponent } from './tasks/tasks.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  users = DUMMY_USERS;
-  selectedUserId?: string;
+  users = signal(DUMMY_USERS);
+  selectedUserId = signal<string | undefined>(undefined);
 
-  get selectedUser() {
-    return this.users.find((user) => user.id === this.selectedUserId);
-  }
+  selectedUser = computed(
+    () => this.users().find((user) => user.id === this.selectedUserId())!
+  );
 
   onUserSelect(userId: string) {
-    this.selectedUserId = userId;
+    this.selectedUserId.set(userId);
   }
 }

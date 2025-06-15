@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, output, input, computed } from '@angular/core';
 import { type User } from './user.model';
 import { CardComponent } from '../shared/card/card.component';
 
@@ -9,15 +9,13 @@ import { CardComponent } from '../shared/card/card.component';
   imports: [CardComponent],
 })
 export class UserComponent {
-  @Input({ required: true }) user!: User;
-  @Input({ required: true }) selected!: boolean;
-  @Output() select = new EventEmitter<string>();
+  user = input.required<User>();
+  selected = input.required<boolean>();
+  select = output<string>();
 
-  get imagePath() {
-    return 'users/' + this.user.avatar;
-  }
+  imagePath = computed(() => 'users/' + this.user().avatar);
 
   onSelectUser() {
-    this.select.emit(this.user.id);
+    this.select.emit(this.user().id);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TasksService } from '../tasks.service';
 
@@ -9,12 +9,12 @@ import { TasksService } from '../tasks.service';
   styleUrl: './new-task.component.css',
 })
 export class NewTaskComponent {
-  @Input() userId!: string;
-  @Output() close = new EventEmitter<void>();
+  userId = input.required<string>();
+  close = output<void>();
 
-  enteredTitle = '';
-  enteredSummary = '';
-  enteredDueDate = '';
+  enteredTitle = signal('');
+  enteredSummary = signal('');
+  enteredDueDate = signal('');
 
   constructor(private tasksService: TasksService) {}
 
@@ -25,11 +25,11 @@ export class NewTaskComponent {
   onSubmit() {
     this.tasksService.addTask(
       {
-        title: this.enteredTitle,
-        summary: this.enteredSummary,
-        dueDate: this.enteredDueDate,
+        title: this.enteredTitle(),
+        summary: this.enteredSummary(),
+        dueDate: this.enteredDueDate(),
       },
-      this.userId
+      this.userId()
     );
     this.close.emit();
   }

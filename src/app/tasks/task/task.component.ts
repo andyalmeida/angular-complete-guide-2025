@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { type Task } from './task.mode';
 import { CardComponent } from '../../shared/card/card.component';
 import { DatePipe } from '@angular/common';
@@ -11,11 +11,11 @@ import { TasksService } from '../tasks.service';
   styleUrl: './task.component.css',
 })
 export class TaskComponent {
-  @Input({ required: true }) task!: Task;
+  task = input.required<Task>();
 
   constructor(private tasksService: TasksService) {}
 
   onCompleteTask() {
-    this.tasksService.removeTask(this.task.id);
+    this.tasksService.removeTask(this.task().id);
   }
 }
