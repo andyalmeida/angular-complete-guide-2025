@@ -1,4 +1,4 @@
-<form>
+<form (ngSubmit)="onCalculate()">
   <div class="input-group">
     <div>
       <label for="initial-investment">Initial Investment</label>
@@ -47,11 +47,5 @@
     </div>
   </div>
 
-  <button type="submit" (click)="onCalculate()">Calculate</button>
+  <button type="submit">Calculate</button>
 </form>
-
-@if(investmentService.annualData().length) {
-<app-investment-results />
-} @else {
-<p class="center">Please enter some values and press "Calculate".</p>
-}

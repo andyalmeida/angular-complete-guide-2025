@@ -1,12 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { type InvestmentData } from '../investment-results/investment.model';
-import { InvestmentService } from '../investment-results/investment.service';
-import { InvestmentResultsComponent } from '../investment-results/investment-results.component';
+import { type InvestmentData } from '../investment.model';
+import { InvestmentService } from '../investment.service';
 
 @Component({
   selector: 'app-user-input',
-  imports: [FormsModule, InvestmentResultsComponent],
+  imports: [FormsModule],
   templateUrl: './user-input.component.html',
   styleUrl: './user-input.component.css',
 })
@@ -20,7 +19,7 @@ export class UserInputComponent {
 
   formData = signal({ ...this.initialInvestmentData });
 
-  constructor(public investmentService: InvestmentService) {}
+  constructor(private investmentService: InvestmentService) {}
 
   onCalculate() {
     this.investmentService.calculateInvestmentResults(this.formData());

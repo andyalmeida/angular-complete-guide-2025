@@ -8,7 +8,7 @@ import {
   providedIn: 'root',
 })
 export class InvestmentService {
-  annualData = signal<AnnualInvestmentData[]>([]);
+  annualData = signal<AnnualInvestmentData[] | undefined>(undefined);
 
   calculateInvestmentResults(investmentData: InvestmentData) {
     const annualData = [];
