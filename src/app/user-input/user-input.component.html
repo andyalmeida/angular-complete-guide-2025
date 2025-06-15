@@ -6,7 +6,7 @@
         type="number"
         id="initial-investment"
         name="initial-investment"
-        [(ngModel)]="initialInvestment"
+        [(ngModel)]="formData().initialInvestment"
         required
       />
     </div>
@@ -17,7 +17,7 @@
         type="number"
         id="annual-investment"
         name="annual-investment"
-        [(ngModel)]="annualInvestment"
+        [(ngModel)]="formData().annualInvestment"
         required
       />
     </div>
@@ -30,7 +30,7 @@
         type="number"
         id="expected-return"
         name="expected-return"
-        [(ngModel)]="expectedReturn"
+        [(ngModel)]="formData().expectedReturn"
         required
       />
     </div>
@@ -41,11 +41,17 @@
         type="number"
         id="duration"
         name="duration"
-        [(ngModel)]="duration"
+        [(ngModel)]="formData().duration"
         required
       />
     </div>
   </div>
 
-  <button type="submit">Calculate</button>
+  <button type="submit" (click)="onCalculate()">Calculate</button>
 </form>
+
+@if(investmentService.annualData().length) {
+<app-investment-results />
+} @else {
+<p class="center">Please enter some values and press "Calculate".</p>
+}
